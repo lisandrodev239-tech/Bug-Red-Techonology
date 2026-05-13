@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { createClient } from "@/lib/supabase";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -18,16 +19,17 @@ export default function Contact() {
     setErrorMsg("");
 
     try {
-      const res = await fetch("/api/submit-request", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      const supabase = createClient();
+
+      const { error } = await supabase.from("requests").insert({
+        name: form.name,
+        email: form.email || null,
+        service_type: form.service_type,
+        problem: form.problem,
+        status: "pending",
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Something went wrong");
-      }
+      if (error) throw error;
 
       setStatus("success");
       setForm({ name: "", email: "", service_type: "", problem: "" });
