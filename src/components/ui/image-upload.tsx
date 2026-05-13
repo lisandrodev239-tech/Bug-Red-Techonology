@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { ImagePlus, X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface ImageUploadProps {
@@ -60,11 +59,10 @@ export function ImageUpload({ currentImage, onUpload }: ImageUploadProps) {
     <div className="space-y-2">
       {preview ? (
         <div className="relative w-full aspect-video rounded-lg border bg-muted overflow-hidden group">
-          <Image
+          <img
             src={preview}
             alt="Preview"
-            fill
-            className="object-contain"
+            className="w-full h-full object-contain"
           />
           <button
             type="button"

@@ -4,8 +4,7 @@ import { formatCurrency, serialize } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Package, Tag, ImageIcon } from "lucide-react";
-import Image from "next/image";
+import { ShoppingCart, Package, Tag } from "lucide-react";
 import Link from "next/link";
 
 export default async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
@@ -26,11 +25,10 @@ export default async function ProductDetailPage(props: { params: Promise<{ id: s
       <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-muted/30 rounded-xl p-8 flex items-center justify-center min-h-[300px] relative">
           {product.imageUrl ? (
-            <Image
+            <img
               src={product.imageUrl}
               alt={product.name}
-              fill
-              className="object-contain p-4"
+              className="w-full h-full object-contain p-4"
             />
           ) : (
             <Package className="h-24 w-24 text-muted-foreground/40" />

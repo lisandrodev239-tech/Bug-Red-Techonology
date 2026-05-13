@@ -13,7 +13,6 @@ import { formatCurrency } from "@/lib/utils";
 import { Plus, Pencil, ImageIcon } from "lucide-react";
 import type { Product } from "@/types";
 import { ImageUpload } from "@/components/ui/image-upload";
-import Image from "next/image";
 
 const categories = [
   { value: "motherboard", label: "Motherboard" },
@@ -61,8 +60,8 @@ export function InventoryTable({ products }: { products: Product[] }) {
               <TableRow key={product.id}>
                 <TableCell>
                   {product.imageUrl ? (
-                    <div className="relative w-12 h-12 rounded overflow-hidden">
-                      <Image src={product.imageUrl} alt="" fill className="object-cover" />
+                    <div className="w-12 h-12 rounded overflow-hidden bg-muted">
+                      <img src={product.imageUrl} alt="" className="w-full h-full object-cover" />
                     </div>
                   ) : (
                     <div className="w-12 h-12 rounded bg-muted flex items-center justify-center">

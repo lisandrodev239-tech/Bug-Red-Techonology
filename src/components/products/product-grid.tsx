@@ -3,7 +3,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { ImageIcon } from "lucide-react";
-import Image from "next/image";
 import type { Product } from "@/types";
 
 export function ProductGrid({ products }: { products: Product[] }) {
@@ -14,11 +13,10 @@ export function ProductGrid({ products }: { products: Product[] }) {
           <Card className="group transition-all hover:shadow-lg hover:border-primary/50 h-full overflow-hidden">
             <div className="relative w-full aspect-square bg-muted/30">
               {product.imageUrl ? (
-                <Image
+                <img
                   src={product.imageUrl}
                   alt={product.name}
-                  fill
-                  className="object-contain p-4 group-hover:scale-105 transition-transform"
+                  className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform"
                 />
               ) : (
                 <div className="flex items-center justify-center h-full">
