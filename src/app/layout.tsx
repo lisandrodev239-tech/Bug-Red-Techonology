@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BugRed — Windows & Linux Installation Specialist",
+  title: "BugRed — Servicio Técnico de Computadoras",
   description:
-    "Fast setups, optimization, and custom Arch Linux builds. Windows and Linux installation specialist.",
+    "Armado, mantenimiento, reparación y servicio técnico de PCs. Windows, Linux y Arch Linux.",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-screen">{children}</body>
