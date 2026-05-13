@@ -6,3 +6,98 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           String       @id @default(cuid())
+  name         String
+  lastname     String
+  email        String       @unique
+  password     String
+  phone        String?
+  address      String?
+  role         String       @default("user")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  orders       Order[]
+  payments     Payment[]
+  transactions Transaction[]
+  repairs      Repair[]
+}
+
+model Order {
+  id                 String    @id @default(cuid())
+  userId             String
+  user               User      @relation(fields: [userId], references: [id])
+  serviceType        String
+  deviceType         String?
+  brand              String?
+  model              String?
+  problemDescription String?
+  observations       String?
+  status             String    @default("pendiente")
+  priority           String    @default("normal")
+  estimatedPrice     Decimal?  @db.Decimal(10,2)
+  finalPrice         Decimal?  @db.Decimal(10,2)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deliveredAt        DateTime?
+  payment            Payment?
+  repair             Repair?
+}
+
+model Repair {
+  id            String   @id @default(cuid())
+  orderId       String   @unique
+  order         Order    @relation(fields: [orderId], references: [id])
+  technicianId  String
+  technician    User     @relation(fields: [technicianId], references: [id])
+  diagnostic    String?
+  solution      String?
+  partsUsed     String?
+  repairTime    Int?
+  repairStatus  String   @default("en_diagnostico")
+  notes         String?
+  createdAt     DateTime @default(now())
+}
+
+model Payment {
+  id                   String    @id @default(cuid())
+  orderId              String    @unique
+  order                Order     @relation(fields: [orderId], references: [id])
+  userId               String
+  user                 User      @relation(fields: [userId], references: [id])
+  amount               Decimal   @db.Decimal(10,2)
+  paymentMethod        String    @default("pending")
+  paymentStatus        String    @default("pending")
+  mercadopagoPaymentId String?
+  transactionCode      String?
+  paidAt               DateTime?
+  createdAt            DateTime  @default(now())
+}
+
+model Transaction {
+  id          String    @id @default(cuid())
+  type        String
+  category    String
+  description String
+  amount      Decimal   @db.Decimal(10,2)
+  referenceId String?
+  createdById String
+  createdBy   User      @relation(fields: [createdById], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  name        String
+  category    String
+  brand       String?
+  model       String?
+  specs       String?
+  stock       Int       @default(0)
+  price       Decimal   @db.Decimal(10,2)
+  description String?
+  imageUrl    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
