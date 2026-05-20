@@ -29,11 +29,11 @@ const priorityColors: Record<string, string> = {
 
 export function OrderTable({ orders }: { orders: Order[] }) {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [statusFilter, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("todas");
 
-  const filtered = statusFilter
-    ? orders.filter((o) => o.status === statusFilter)
-    : orders;
+  const filtered = statusFilter === "todas"
+    ? orders
+    : orders.filter((o) => o.status === statusFilter);
 
   return (
     <div>
@@ -43,7 +43,7 @@ export function OrderTable({ orders }: { orders: Order[] }) {
             <SelectValue placeholder="Filtrar por estado" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Todos</SelectItem>
+            <SelectItem value="todas">Todas</SelectItem>
             {Object.entries(orderStatuses).map(([key, label]) => (
               <SelectItem key={key} value={key}>{label}</SelectItem>
             ))}
