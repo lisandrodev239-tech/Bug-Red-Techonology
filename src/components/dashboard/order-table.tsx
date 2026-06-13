@@ -159,6 +159,14 @@ function OrderEditForm({ order }: { order: Order }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {order.problemDescription && (
+        <div>
+          <Label>Descripción del Problema</Label>
+          <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md">
+            {order.problemDescription}
+          </p>
+        </div>
+      )}
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label>Estado</Label>
