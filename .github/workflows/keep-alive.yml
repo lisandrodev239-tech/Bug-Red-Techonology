@@ -1,0 +1,12 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    - cron: "0 0 */3 * *"
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping keep-alive endpoint
+        run: curl -sSf "https://bug-red-techonology.vercel.app/api/keep-alive"
